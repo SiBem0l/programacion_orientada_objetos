@@ -7,9 +7,11 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${file}",
+                "Date.cpp",
+                "Employee.cpp",
+                "main.cpp",
                 "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+                "program.exe"
             ],
             "options": {
                 "cwd": "${fileDirname}"
