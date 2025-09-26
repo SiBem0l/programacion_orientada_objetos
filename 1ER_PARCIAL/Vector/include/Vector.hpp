@@ -2,6 +2,7 @@
 #define VECTOR_HPP
 
 #include "iostream"
+
 #define VECTOR_ELEMENT int
 #define VECTOR_DEFAULT 0
 
@@ -14,20 +15,23 @@ private:
     int size;
     int maxSize;
 
+    int getMaxSize() const;
     void incrementMaxSize();
 
 public:
-    // Constructor and destructor
-    Vector(int size = 0);
+    Vector(int newMaxSize = 0);
+    Vector(int size, VECTOR_ELEMENT value);
     ~Vector();
+    Vector& operator=(const Vector v);
 
-    // Getter and setters
-    int getSize();
+    int getSize() const;
+    void setAll(VECTOR_ELEMENT value);
     VECTOR_ELEMENT& operator[](int index);
+    const VECTOR_ELEMENT& operator[](int index) const;
 
-    // Modifier
     void push_back(VECTOR_ELEMENT value);
     VECTOR_ELEMENT pop_back();
+
     void insert(int index, VECTOR_ELEMENT value);
     void erase(int index);
     void clear();

@@ -8,10 +8,32 @@ Vector::Vector(int newMaxSize)
     maxSize = newMaxSize;
     elements = new VECTOR_ELEMENT[newMaxSize];
 }
+Vector::Vector(int newSize, VECTOR_ELEMENT value)
+{
+    size = newSize;
+    maxSize = 2*newSize;
+    elements = new VECTOR_ELEMENT[maxSize];
+    setAll(value);
+}
 
 Vector::~Vector()
 {
     delete[] elements;
+}
+
+Vector& Vector::operator=(const Vector v)
+{
+    clear();
+    for(int index = 0; index < size; index++)
+    {
+        push_back(v[index]);
+    }
+    return *this;
+}
+
+int Vector::getMaxSize() const
+{
+    return maxSize;
 }
 
 void Vector::incrementMaxSize()
@@ -24,9 +46,17 @@ void Vector::incrementMaxSize()
 }
 
 // Getters and setters
-int Vector::getSize()
+int Vector::getSize() const
 {
     return size;
+}
+
+void Vector::setAll(int value)
+{
+    for(int i = 0; i < size; i++)
+    {
+        (*this)[i] = value;
+    }
 }
 
 VECTOR_ELEMENT& Vector::operator[](int index)
@@ -34,7 +64,12 @@ VECTOR_ELEMENT& Vector::operator[](int index)
     return elements[index];
 }
 
-// Modifiers
+const VECTOR_ELEMENT& Vector::operator[](int index) const
+{
+    return elements[index];
+}
+
+
 void Vector::push_back(VECTOR_ELEMENT value)
 {
     if(size >= maxSize)
@@ -63,7 +98,6 @@ void Vector::insert(int index, VECTOR_ELEMENT value)
     {
         incrementMaxSize();
     }
-    // memmove((void*)elements[index + 1], (void*)elements[index], sizeof(VECTOR_ELEMENT)*(size-index));
     for(int i = size; i > index; i--)
     {
         elements[i] = elements[i-1];
