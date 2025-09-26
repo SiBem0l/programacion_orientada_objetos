@@ -65,13 +65,21 @@ bool Racional::esNegativo() const
     return !(this->esPositivo());
 }
 
-// Sobrecarga de operadores
+// Sobrecarga de operadores friend
 ostream &operator<<(ostream &outStream, const Racional &r1)
 {
     outStream << r1.numerador << "/" << r1.denominador;
     return outStream;
 }
 
+istream &operator>>(istream &inStream, Racional &number)
+{
+    char barra;
+    inStream >> number.numerador >> barra >> number.denominador;
+    return inStream;
+}
+
+// Sobrecarga de operaciones
 Racional Racional::operator+(const Racional &r1) const
 {
     Racional ans;

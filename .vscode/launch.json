@@ -8,7 +8,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}\\Guia 2\\racional\\program.exe",
+            "program": "${workspaceFolder}\\1ER_PARCIAL\\Vector\\program.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",

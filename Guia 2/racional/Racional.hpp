@@ -7,8 +7,9 @@ using namespace std;
 
 class Racional
 {
-    // Compatibilidad Racional con std::cout
+    // Compatibilidad Racional con streams
     friend ostream &operator<<(ostream &, const Racional &);
+    friend istream &operator>>(istream &, Racional &);
 
 public:
     // Constructores y copias

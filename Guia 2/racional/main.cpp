@@ -101,164 +101,162 @@ void demostracionAutomatica() {
     cout << "g /= 1/3: " << g << "\n";
 }
 
-// void ingresoManual() {
-//     cout << "\n=== INGRESO MANUAL DE FRACCIONES ===\n";
+void ingresoManual() {
+    cout << "\n=== INGRESO MANUAL DE FRACCIONES ===\n";
 
-//     Racional r1, r2;
+    Racional r1, r2;
 
-//     cout << "Ingrese la primera fraccion:\n";
-//     cin >> r1;
+    cout << "Ingrese la primera fraccion:\n";
+    cin >> r1;
 
-//     cout << "Ingrese la segunda fraccion:\n";
-//     cin >> r2;
+    cout << "Ingrese la segunda fraccion:\n";
+    cin >> r2;
 
-//     cout << "\nFracciones ingresadas (simplificadas):\n";
-//     cout << "Primera fraccion: " << r1 << "\n";
-//     cout << "Segunda fraccion: " << r2 << "\n";
+    cout << "\nFracciones ingresadas (simplificadas):\n";
+    cout << "Primera fraccion: " << r1 << "\n";
+    cout << "Segunda fraccion: " << r2 << "\n";
 
-//     cout << "\nOperaciones entre las fracciones:\n";
-//     cout << r1 << " + " << r2 << " = " << (r1 + r2) << "\n";
-//     cout << r1 << " - " << r2 << " = " << (r1 - r2) << "\n";
-//     cout << r1 << " * " << r2 << " = " << (r1 * r2) << "\n";
+    cout << "\nOperaciones entre las fracciones:\n";
+    cout << r1 << " + " << r2 << " = " << (r1 + r2) << "\n";
+    cout << r1 << " - " << r2 << " = " << (r1 - r2) << "\n";
+    cout << r1 << " * " << r2 << " = " << (r1 * r2) << "\n";
 
-//     if (!r2.esCero()) {
-//         cout << r1 << " / " << r2 << " = " << (r1 / r2) << "\n";
-//     } else {
-//         cout << "No se puede dividir por cero\n";
-//     }
-// }
+    if (!r2.esCero()) {
+        cout << r1 << " / " << r2 << " = " << (r1 / r2) << "\n";
+    } else {
+        cout << "No se puede dividir por cero\n";
+    }
+}
 
-// void calculadoraFracciones() {
-//     cout << "\n=== CALCULADORA DE FRACCIONES ===\n";
+void calculadoraFracciones() {
+    cout << "\n=== CALCULADORA DE FRACCIONES ===\n";
 
-//     Racional resultado;
-//     char operacion;
-//     bool continuar = true;
+    Racional resultado;
+    char operacion;
+    bool continuar = true;
 
-//     cout << "Ingrese la fraccion inicial:\n";
-//     cin >> resultado;
+    cout << "Ingrese la fraccion inicial:\n";
+    cin >> resultado;
 
-//     while (continuar) {
-//         cout << "\nResultado actual: " << resultado << "\n";
-//         cout << "Operaciones disponibles: +, -, *, /, =, q(salir)\n";
-//         cout << "Ingrese operacion: ";
-//         cin >> operacion;
+    while (continuar) {
+        cout << "\nResultado actual: " << resultado << "\n";
+        cout << "Operaciones disponibles: +, -, *, /, =, q(salir)\n";
+        cout << "Ingrese operacion: ";
+        cin >> operacion;
 
-//         if (operacion == 'q' || operacion == 'Q') {
-//             continuar = false;
-//             continue;
-//         }
+        if (operacion == 'q' || operacion == 'Q') {
+            continuar = false;
+            continue;
+        }
 
-//         if (operacion == '=') {
-//             cout << "Resultado final: " << resultado << "\n";
-//             cout << "Valor decimal: " << resultado.decimal() << "\n";
-//             continue;
-//         }
+        if (operacion == '=') {
+            cout << "Resultado final: " << resultado << "\n";
+            cout << "Valor decimal: " << resultado.decimal() << "\n";
+            continue;
+        }
 
-//         Racional operando;
-//         cout << "Ingrese la fraccion operando:\n";
-//         cin >> operando;
+        Racional operando;
+        cout << "Ingrese la fraccion operando:\n";
+        cin >> operando;
 
-//         try {
-//             switch (operacion) {
-//                 case '+':
-//                     resultado += operando;
-//                     break;
-//                 case '-':
-//                     resultado -= operando;
-//                     break;
-//                 case '*':
-//                     resultado *= operando;
-//                     break;
-//                 case '/':
-//                     if (operando.esCero()) {
-//                         cout << "Error: No se puede dividir por cero\n";
-//                     } else {
-//                         resultado /= operando;
-//                     }
-//                     break;
-//                 default:
-//                     cout << "Operacion no valida\n";
-//             }
-//         } catch (const exception& e) {
-//             cout << "Error: " << e.what() << "\n";
-//         }
-//     }
-// }
+        try {
+            switch (operacion) {
+                case '+':
+                    resultado += operando;
+                    break;
+                case '-':
+                    resultado -= operando;
+                    break;
+                case '*':
+                    resultado *= operando;
+                    break;
+                case '/':
+                    if (operando.esCero()) {
+                        cout << "Error: No se puede dividir por cero\n";
+                    } else {
+                        resultado /= operando;
+                    }
+                    break;
+                default:
+                    cout << "Operacion no valida\n";
+            }
+        } catch (const exception& e) {
+            cout << "Error: " << e.what() << "\n";
+        }
+    }
+}
 
-// void comparacionFracciones() {
-//     cout << "\n=== COMPARACION DE FRACCIONES ===\n";
+void comparacionFracciones() {
+    cout << "\n=== COMPARACION DE FRACCIONES ===\n";
 
-//     Racional f1, f2;
+    Racional f1, f2;
 
-//     cout << "Ingrese la primera fraccion:\n";
-//     cin >> f1;
+    cout << "Ingrese la primera fraccion:\n";
+    cin >> f1;
 
-//     cout << "Ingrese la segunda fraccion:\n";
-//     cin >> f2;
+    cout << "Ingrese la segunda fraccion:\n";
+    cin >> f2;
 
-//     cout << "\n--- RESULTADOS DE COMPARACION ---\n";
-//     cout << "Fraccion 1: " << f1 << " (decimal: " << f1.decimal() << ")\n";
-//     cout << "Fraccion 2: " << f2 << " (decimal: " << f2.decimal() << ")\n";
+    cout << "\n--- RESULTADOS DE COMPARACION ---\n";
+    cout << "Fraccion 1: " << f1 << " (decimal: " << f1.decimal() << ")\n";
+    cout << "Fraccion 2: " << f2 << " (decimal: " << f2.decimal() << ")\n";
 
-//     cout << "\nComparaciones:\n";
-//     cout << f1 << " == " << f2 << " : " << (f1 == f2 ? "Verdadero" : "Falso") << "\n";
-//     cout << f1 << " != " << f2 << " : " << (f1 != f2 ? "Verdadero" : "Falso") << "\n";
-//     cout << f1 << " < " << f2 << " : " << (f1 < f2 ? "Verdadero" : "Falso") << "\n";
-//     cout << f1 << " > " << f2 << " : " << (f1 > f2 ? "Verdadero" : "Falso") << "\n";
-//     cout << f1 << " <= " << f2 << " : " << (f1 <= f2 ? "Verdadero" : "Falso") << "\n";
-//     cout << f1 << " >= " << f2 << " : " << (f1 >= f2 ? "Verdadero" : "Falso") << "\n";
+    cout << "\nComparaciones:\n";
+    cout << f1 << " == " << f2 << " : " << (f1 == f2 ? "Verdadero" : "Falso") << "\n";
+    cout << f1 << " != " << f2 << " : " << (f1 != f2 ? "Verdadero" : "Falso") << "\n";
+    cout << f1 << " < " << f2 << " : " << (f1 < f2 ? "Verdadero" : "Falso") << "\n";
+    cout << f1 << " > " << f2 << " : " << (f1 > f2 ? "Verdadero" : "Falso") << "\n";
+    cout << f1 << " <= " << f2 << " : " << (f1 <= f2 ? "Verdadero" : "Falso") << "\n";
+    cout << f1 << " >= " << f2 << " : " << (f1 >= f2 ? "Verdadero" : "Falso") << "\n";
 
-//     if (f1 < f2) {
-//         cout << "\nLa fraccion mas pequena es: " << f1 << "\n";
-//         cout << "La fraccion mas grande es: " << f2 << "\n";
-//     } else if (f1 > f2) {
-//         cout << "\nLa fraccion mas pequena es: " << f2 << "\n";
-//         cout << "La fraccion mas grande es: " << f1 << "\n";
-//     } else {
-//         cout << "\nAmbas fracciones son iguales\n";
-//     }
-// }
+    if (f1 < f2) {
+        cout << "\nLa fraccion mas pequena es: " << f1 << "\n";
+        cout << "La fraccion mas grande es: " << f2 << "\n";
+    } else if (f1 > f2) {
+        cout << "\nLa fraccion mas pequena es: " << f2 << "\n";
+        cout << "La fraccion mas grande es: " << f1 << "\n";
+    } else {
+        cout << "\nAmbas fracciones son iguales\n";
+    }
+}
 
 int main() 
 {
-//    int opcion;
-//
-//    cout << fixed << setprecision(4);
-//
-//    do {
-//        mostrarMenu();
-//        cin >> opcion;
-//
-//        switch (opcion) {
-//            case 1:
-//                demostracionAutomatica();
-//                break;
-//            case 2:
-//                ingresoManual();
-//                break;
-//            case 3:
-//                calculadoraFracciones();
-//                break;
-//            case 4:
-//                comparacionFracciones();
-//                break;
-//            case 5:
-//                cout << "\n Chau...\n";
-//                break;
-//            default:
-//                cout << "\nOpcion no valida. Intente de nuevo.\n";
-//        }
-//
-//        if (opcion != 5) {
-//            cout << "\nPresione Enter para continuar...";
-//            cin.ignore();
-//            cin.get();
-//        }
-//
-//    } while (opcion != 5);
+   int opcion;
 
-    demostracionAutomatica();
+   cout << fixed << setprecision(4);
+
+   do {
+       mostrarMenu();
+       cin >> opcion;
+
+       switch (opcion) {
+           case 1:
+               demostracionAutomatica();
+               break;
+           case 2:
+               ingresoManual();
+               break;
+           case 3:
+               calculadoraFracciones();
+               break;
+           case 4:
+               comparacionFracciones();
+               break;
+           case 5:
+               cout << "\n Chau...\n";
+               break;
+           default:
+               cout << "\nOpcion no valida. Intente de nuevo.\n";
+       }
+
+       if (opcion != 5) {
+           cout << "\nPresione Enter para continuar...";
+           cin.ignore();
+           cin.get();
+       }
+
+   } while (opcion != 5);
 
     return 0;
 }
