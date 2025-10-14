@@ -2,6 +2,7 @@
 #define ACCOUNT_H
 
 #include <iostream>
+#include "Client.hpp"
 
 class Account
 {
