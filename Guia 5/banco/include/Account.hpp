@@ -8,14 +8,15 @@ class Account
 {
     friend std::ostream& operator<<(std::ostream& stream, Account& account);
 private:
-    std::string holder;
-    int balance;
+    Client holder;
+    int balance = 0;
 
 public:
-    Account(std::string holder);
+    Account();
+    Account(const Client& holder);
     virtual ~Account();
 
-    std::string getHolder() const;
+    std::string getHolderName() const;
     int getBalance() const;
     bool transfer(Account& destinatary, int amount);
 

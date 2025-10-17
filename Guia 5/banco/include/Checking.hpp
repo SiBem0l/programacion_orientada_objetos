@@ -9,7 +9,7 @@ private:
     int maxOverdraft;
 
 public:
-    Checking(std::string holder, int maxOverdraft);
+    Checking(const Client& holder, int maxOverdraft);
 
     bool withdrawal(int amount) override;
     bool sufficientFonds(int amount) override;

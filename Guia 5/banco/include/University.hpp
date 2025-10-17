@@ -12,7 +12,7 @@ private:
     void extractionDone(int amount);
     bool allowExtraction(int amount) const;
 public:
-    University(std::string holder, int maxAmountExtractionDaily);
+    University(const Client& holder, int maxAmountExtractionDaily);
 
     void endDay();
     bool withdrawal(int amount) override;

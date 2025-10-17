@@ -1,8 +1,8 @@
 #include "Checking.hpp"
 #include <math.h>
 
-Checking::Checking(std::string holder, int maxOverdraft) : Account(holder),
-                                                           maxOverdraft(maxOverdraft)
+Checking::Checking(const Client& holder, int maxOverdraft) : Account(holder),
+                                                             maxOverdraft(maxOverdraft)
 {
 }
 

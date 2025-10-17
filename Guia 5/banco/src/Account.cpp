@@ -1,16 +1,19 @@
 #include <iostream>
 #include "Account.hpp"
 
-Account::Account(std::string holder) : holder(holder), 
-                                       balance(0)
+Account::Account() : holder()
+{
+}
+
+Account::Account(const Client& holder) : holder(holder)
 {
 }
 
 Account::~Account() = default;
 
-std::string Account::getHolder() const
+std::string Account::getHolderName() const
 {
-    return holder;
+    return holder.getName();
 }
 
 int Account::getBalance() const
@@ -47,6 +50,6 @@ bool Account::sufficientFonds(int amount)
 
 std::ostream &operator<<(std::ostream &stream, Account &account)
 {
-    stream << account.getHolder() << " balance: " << account.getBalance() << std::endl;
+    stream << account.getHolderName() << " balance: " << account.getBalance() << std::endl;
     return stream;
 }

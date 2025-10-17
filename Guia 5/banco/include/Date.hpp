@@ -7,9 +7,9 @@ class Date
 {
     friend std::ostream& operator<< (std::ostream& outStream, Date date);
 private:
-    int day;
-    int month;
-    int year;
+    int day = 0;
+    int month = 0;
+    int year = 0;
 
 public:
     Date(int day = 0, int month = 0, int year = 0);

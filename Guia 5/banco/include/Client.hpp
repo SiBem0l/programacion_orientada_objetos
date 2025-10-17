@@ -7,26 +7,25 @@
 class Client
 {
 private:
-    std::string name;
-    std::string surname;
-    int identification;
+    std::string name = "";
+    std::string surname = "";
+    int identification = 0;
     Date birth;
 
 public:
-    Client(std::string newName, std::string newSurname, int newIdentification, 
-           int newBirthDay, int newBirthMonth, int newBirthYear);
+    Client();
+    Client(std::string newName, std::string newSurname, int newIdentification, const Date &newBirth);
 
     std::string getName() const;
     std::string getSurname() const;
     int getIdentification() const;
     Date getBirth() const;
 
-    void set(std::string newName, std::string newSurname, int newIdentification, 
-             int newBirthDay, int newBirthMonth, int newBirthYear);
+    void set(std::string newName, std::string newSurname, int newIdentification, const Date &newBrith);
     void setName(std::string newName);
     void setSurname(std::string newSurname);
-    void setBirth(int newBirthDay, int newBirthMonth, int newBirthYear);
-    void setIdentification(int newIdentification);  
+    void setBirth(const Date &newBrith);
+    void setIdentification(int newIdentification);
 };
 
 #endif

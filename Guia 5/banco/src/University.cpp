@@ -1,8 +1,8 @@
 #include "University.hpp"
 
-University::University(std::string holder, int max) : Account(holder),
-                                                      amountExtractionDay(0),
-                                                      maxAmountExtractionDaily(max)
+University::University(const Client& holder, int max) : Account(holder),
+                                                        amountExtractionDay(0),
+                                                        maxAmountExtractionDaily(max)
 {
 }
 

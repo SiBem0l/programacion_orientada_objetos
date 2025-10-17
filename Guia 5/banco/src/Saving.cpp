@@ -1,8 +1,8 @@
 #include "Saving.hpp"
 
-Saving::Saving(std::string holder, int max) : Account(holder),
-                                              numberExtractionsMonth(0),
-                                              maxNumberExtractionsMonthly(max)
+Saving::Saving(const Client& holder, int max) : Account(holder),
+                                                numberExtractionsMonth(0),
+                                                maxNumberExtractionsMonthly(max)
 
 {
 }

@@ -13,7 +13,7 @@ private:
     void extractionDone();
 
 public:
-    Saving(std::string holder, int maxNumberExtractionsMonthly);
+    Saving(const Client& holder, int maxNumberExtractionsMonthly);
 
     void endMonth();
 

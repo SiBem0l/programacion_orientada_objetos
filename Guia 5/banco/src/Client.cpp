@@ -1,10 +1,13 @@
 #include "Client.hpp"
 
-Client::Client(std::string newName, std::string newSurname, int newIdentification,
-               int newBirthDay, int newBirthMonth, int newBirthYear) : name(newName),
-                                                                       surname(newSurname),
-                                                                       identification(newIdentification),
-                                                                       birth(newBirthDay, newBirthMonth, newBirthYear)
+Client::Client() : birth()
+{
+}
+
+Client::Client(std::string newName, std::string newSurname, int newIdentification, const Date& newBirth) : name(newName),
+                                                                                                        surname(newSurname),
+                                                                                                        identification(newIdentification),
+                                                                                                        birth(newBirth)
 {
 }
 
@@ -28,13 +31,12 @@ Date Client::getBirth() const
     return birth;
 }
 
-void Client::set(std::string newName, std::string newSurname, int newIdentification,
-                 int newBirthDay, int newBirthMonth, int newBirthYear)
+void Client::set(std::string newName, std::string newSurname, int newIdentification, const Date& newBirth)
 {
     setName(newName);
     setSurname(newSurname);
     setIdentification(newIdentification);
-    setBirth(newBirthDay, newBirthMonth, newBirthYear);
+    setBirth(newBirth);
 }
 
 void Client::setName(std::string newName)
@@ -47,9 +49,9 @@ void Client::setSurname(std::string newSurname)
     surname = newSurname;
 }
 
-void Client::setBirth(int newBirthDay, int newBirthMonth, int newBirthYear)
+void Client::setBirth(const Date& newBirth)
 {
-    birth.set(newBirthDay, newBirthMonth, newBirthYear);
+    birth = newBirth;
 }
 
 void Client::setIdentification(int newIdentification)

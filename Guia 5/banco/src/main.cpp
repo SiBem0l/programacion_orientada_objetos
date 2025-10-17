@@ -1,29 +1,30 @@
 #include <iostream>
-#include "Account.hpp"
+
+#include "Bank.hpp"
+// #include "Account.hpp" //included in Bank.hpp 
 #include "Checking.hpp"
 #include "Saving.hpp"
 #include "University.hpp"
 
+using namespace std;
+
 int main() 
 {
-    // Account* cuentas[3] = 
-    // {
-    //     new University("Nerea", 100),
-    //     new Checking("Julian", 10),
-    //     new Saving("Escoty", 1)
-    // };
+    std::string filename = "accounts";
 
-    // Account& nere = *cuentas[0];
-    // Account& juli = *cuentas[1];
-    // Account& escoty = *cuentas[2];
+    Bank galicia;
+    // galicia.accountsPushBack(Account{Client{"Julian", "Llinares", 45318793, Date{18, 12, 2003}}});
+    // galicia.accountsPushBack(Account{Client{"Escoty", "Llinares", 11111111, Date{11, 11, 1111}}});
+    // galicia.accountsPushBack(Account{Client{"Delfina", "Llinares", 22222222, Date{22, 22, 2222}}});
+    // galicia.storeAccounts(filename);
 
-    // juli.transfer(nere, 10);
-    // nere.transfer(escoty, 10);
-    // escoty.transfer(juli, 10);
+    galicia.readAccounts(filename);
 
-    // std::cout << juli << nere << escoty;
+    cout << galicia.getAccount(0);
+    cout << galicia.getAccount(1);
+    cout << galicia.getAccount(2);
 
-    Client nerea("Nerea", "Arrospide", 46738897, 18, 12, 2003);
+    
 
     return 0;
 }
