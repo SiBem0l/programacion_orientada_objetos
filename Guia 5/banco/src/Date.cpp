@@ -1,50 +1,77 @@
 #include "Date.hpp"
 
-Date::Date(int newDay, int newMonth, int newYear) : day(newDay),
-                                                    month(newMonth),
-                                                    year(newYear)
+// Overload for text output stream
+std::ostream &operator<<(std::ostream &outStream, Date date)
+{
+    outStream << date.day << "/" << date.month << "/" << date.year;
+    return outStream;
+}
+
+// Constructor:
+Date::Date(Unit newDay, Unit newMonth, Unit newYear) : day(newDay),
+                                                       month(newMonth),
+                                                       year(newYear)
 {
 }
 
-int Date::getDay() const
+// Getters:
+Unit Date::getDay() const
 {
     return day;
 }
 
-int Date::getMonth() const
+Unit Date::getMonth() const
 {
     return month;
 }
 
-int Date::getYear() const
+Unit Date::getYear() const
 {
     return year;
 }
 
-void Date::set(int newDay, int newMonth, int newYear)
+// Setters:
+void Date::set(Unit newDay, Unit newMonth, Unit newYear)
 {
     setDay(newDay);
     setMonth(newMonth);
     setYear(newYear);
 }
 
-void Date::setDay(int newDay)
+void Date::setDay(Unit newDay)
 {
     day = newDay;
 }
 
-void Date::setMonth(int newMonth)
+void Date::setMonth(Unit newMonth)
 {
     month = newMonth;
 }
 
-void Date::setYear(int newYear)
+void Date::setYear(Unit newYear)
 {
     year = newYear;
 }
 
-std::ostream &operator<<(std::ostream &outStream, Date date)
+// Files Management:
+static void storeUnit(std::ofstream& outFile, const Unit& unit)
 {
-    outStream << date.day << "/" << date.month << "/" << date.year;
-    return outStream;
+    outFile.write(reinterpret_cast<const char*>(&unit), sizeof(unit));
+}
+void Date::storeBinary(std::ofstream& outFile) const
+{
+    storeUnit(outFile, getDay());
+    storeUnit(outFile, getMonth());
+    storeUnit(outFile, getYear());
+}
+
+static void readUnit(std::ifstream& inFile, Unit& unit)
+{
+    inFile.read(reinterpret_cast<char*>(&unit), sizeof(unit));
+}
+void Date::readBinary(std::ifstream& inFile)
+{
+    readUnit(inFile, day);
+    readUnit(inFile, month);
+    readUnit(inFile, year);
 }

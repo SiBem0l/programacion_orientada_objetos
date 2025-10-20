@@ -6,13 +6,24 @@
 class Checking: public Account
 {
 private:
-    int maxOverdraft;
+    Money maxOverdraft;
 
 public:
-    Checking(const Client& holder, int maxOverdraft);
+    // Constructor:
+    Checking(const Client& holder, Money maxOverdraft);
 
-    bool withdrawal(int amount) override;
-    bool sufficientFonds(int amount) override;
+    // Getters:
+    Money getMaxOverdraft() const;
+
+    // Setters:
+    bool withdrawal(Money amount) override;
+
+    // Useful:
+    bool sufficientFonds(Money amount) override;
+     
+    // Files Management:
+    void storeBinary(std::ofstream& outFile) const override;
+    void readBinary(std::ifstream& inFile) override;
 };
 
 #endif

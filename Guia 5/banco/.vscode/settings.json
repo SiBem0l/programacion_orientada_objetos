@@ -1,5 +1,7 @@
 {
     "files.associations": {
+        "fstream": "cpp",
+        "iostream": "cpp",
         "array": "cpp",
         "atomic": "cpp",
         "bit": "cpp",
@@ -37,7 +39,6 @@
         "format": "cpp",
         "initializer_list": "cpp",
         "iosfwd": "cpp",
-        "iostream": "cpp",
         "istream": "cpp",
         "limits": "cpp",
         "new": "cpp",
@@ -48,8 +49,6 @@
         "streambuf": "cpp",
         "text_encoding": "cpp",
         "typeinfo": "cpp",
-        "variant": "cpp",
-        "fstream": "cpp"
-    },
-    "C_Cpp.default.compilerPath": "C:/msys64/ucrt64/bin/g++.exe"
+        "variant": "cpp"
+    }
 }

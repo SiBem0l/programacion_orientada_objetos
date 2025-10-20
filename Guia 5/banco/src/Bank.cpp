@@ -1,12 +1,13 @@
 #include <fstream>
 #include "Bank.hpp"
 
-Account& Bank::getAccount(size_t index)
+// Getters:
+Account& Bank::getAccount(indexType index)
 {
     return accounts.at(index);
 }
 
-const Account& Bank::getAccount(size_t index) const
+const Account& Bank::getAccount(indexType index) const
 {
     return accounts.at(index);
 }
@@ -21,17 +22,18 @@ Account& Bank::getAccountsLast()
     return getAccount(accounts.size());
 }
 
-int Bank::getActivesTotal() const
+Money Bank::getActivesTotal() const
 {
     return activesTotal;
 }
 
-void Bank::accountsInsert(size_t index, const Account& account)
+// Setters:
+void Bank::accountsInsert(indexType index, const Account& account)
 {
     if(0 < index && index < accounts.size())
     {   
-        accounts.insert(accounts.begin() + index, account);
         activesTotal += account.getBalance();
+        accounts.insert(accounts.begin() + index, account);
     }
 }
 
@@ -39,55 +41,62 @@ void Bank::accountsErease(size_t index)
 {
     if(0 < index && index < accounts.size())
     {
+        activesTotal -= getAccount(index).getBalance();
         accounts.erase(accounts.begin() + index);
     }
 }
 
 void Bank::accountsPushBack(const Account& account)
 {
-    accounts.push_back(account);
     activesTotal += account.getBalance();
+    accounts.push_back(account);
 }
 
 void Bank::accountsPopBack()
 {
+    activesTotal -= getAccount(accounts.size()).getBalance();
     accounts.pop_back();
 }
 
-bool Bank::storeAccounts(std::string fileName) const
+// Files management:
+bool Bank::storeBinary(std::string fileName) const
 {
     bool done = false;
     std::ofstream outFile(fileName);
     if(outFile.fail())
     {
         std::cout << "File not found" << std::endl;
-    }else{  
-        size_t nAccounts = accounts.size();
-        outFile.write(reinterpret_cast<const char*>(&nAccounts), sizeof(nAccounts));
-        for (size_t iAccount = 0; iAccount < nAccounts; iAccount++)
+    }
+    else
+    {  
+        indexType nAccounts = accounts.size();
+        outFile.write(reinterpret_cast<char*>(&nAccounts), sizeof(nAccounts));
+        for (indexType iAccount = 0; iAccount < nAccounts; iAccount++)
         {
-            const Account& currentAccount = getAccount(iAccount);
-            outFile.write(reinterpret_cast<const char*>(&currentAccount), sizeof(Account));
+            const Account& account = getAccount(iAccount);
+            account.storeBinary(outFile);
         }
         done = true;
     }
     return done;
 }   
 
-bool Bank::readAccounts(std::string fileName)
+bool Bank::readBinary(std::string fileName)
 {
     bool done = false;
     std::ifstream inFile(fileName);
     if(inFile.fail())
     {
         std::cout << "File not found" << std::endl;
-    }else{  
-        size_t nAccounts = 0;
+    }
+    else
+    {  
+        indexType nAccounts = 0;
         inFile.read(reinterpret_cast<char*>(&nAccounts), sizeof(nAccounts));
-        for(size_t iAccount = 0; iAccount < nAccounts; iAccount++)
+        for(indexType iAccount = 0; iAccount < nAccounts; iAccount++)
         {
             Account currentAccount;
-            inFile.read(reinterpret_cast<char*>(&currentAccount), sizeof(Account));
+            currentAccount.readBinary(inFile);
             accounts.push_back(currentAccount);
         }
         done = true;

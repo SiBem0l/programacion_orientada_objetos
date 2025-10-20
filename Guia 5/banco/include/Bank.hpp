@@ -4,29 +4,33 @@
 #include <vector>
 #include "Account.hpp"
 
+// Index type for the vector of Accounts
+using indexType = std::vector<Account>::size_type;
+
 class Bank
 {
 private:
     std::vector<Account> accounts;
-    int activesTotal = 0;
+    Money activesTotal = 0;
 
-public:
-    Account& getAccount(size_t index);
-    const Account& getAccount(size_t index) const;
-    // Account& getAccount(int identification);
-    // Account& getAccount(std::string holder);
+public: 
+    // Getters:
+    Account& getAccount(indexType index);
+    const Account& getAccount(indexType index) const;
     Account& getAccountsFirst();
     Account& getAccountsLast();
-    int getActivesTotal() const;
+    Money getActivesTotal() const;
 
-    void accountsInsert(size_t index, const Account& account);
-    void accountsErease(size_t index);
+    // Setters:
+    void accountsInsert(indexType index, const Account& account);
+    void accountsErease(indexType index);
 
     void accountsPushBack(const Account& account);
     void accountsPopBack();
 
-    bool storeAccounts(std::string fileName) const;
-    bool readAccounts(std::string fileName);     
+    // Files management:
+    bool storeBinary(std::string fileName) const;
+    bool readBinary(std::string fileName);     
 };
 
 

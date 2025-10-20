@@ -9,15 +9,23 @@ private:
     int numberExtractionsMonth;
     int maxNumberExtractionsMonthly;
 
+    // Useful:
     bool allowExtraction();
     void extractionDone();
 
 public:
+    // Constructor:
     Saving(const Client& holder, int maxNumberExtractionsMonthly);
 
+    // Setters:
+    bool withdrawal(Money amount) override;
+
+    // Useful:
     void endMonth();
 
-    bool withdrawal(int amount) override;
+    // Files Management:
+    void storeBinary(std::ofstream& outFile) const override;
+    void readBinary(std::ifstream& inFile) override;
 };
 
 #endif

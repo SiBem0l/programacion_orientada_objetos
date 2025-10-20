@@ -2,26 +2,37 @@
 #define FECHA_HPP
 
 #include <iostream>
+#include <fstream>
+
+using Unit = int;
 
 class Date
 {
+    // Overload for text output stream
     friend std::ostream& operator<< (std::ostream& outStream, Date date);
 private:
-    int day = 0;
-    int month = 0;
-    int year = 0;
+    Unit day = 0;
+    Unit month = 0;
+    Unit year = 0;
 
 public:
-    Date(int day = 0, int month = 0, int year = 0);
+    // Constructor:
+    Date(Unit day = 0, Unit month = 0, Unit year = 0);
 
-    int getDay() const;
-    int getMonth() const;
-    int getYear() const;
+    // Getters:
+    Unit getDay() const;
+    Unit getMonth() const;
+    Unit getYear() const;
 
-    void set(int day, int month, int year);
-    void setDay(int newDay);
-    void setMonth(int newMonth);
-    void setYear(int newYear);
+    // Setters:
+    void set(Unit day, Unit month, Unit year);
+    void setDay(Unit newDay);
+    void setMonth(Unit newMonth);
+    void setYear(Unit newYear);
+
+    // Files Management:
+    void storeBinary(std::ofstream& outFile) const;
+    void readBinary(std::ifstream& outFile);
 };
 
 #endif
