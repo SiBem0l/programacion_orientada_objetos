@@ -2,9 +2,15 @@
 #include <math.h>
 
 // Constructor:
-Checking::Checking(const Client& holder, Money maxOverdraft) : Account(holder),
-                                                               maxOverdraft(maxOverdraft)
+Checking::Checking()
 {
+    Account::type = typeChecking;
+}
+
+Checking::Checking(Client& newHolder, Money maxOverdraft) : Account(newHolder),
+                                                            maxOverdraft(maxOverdraft)
+{
+    Account::type = typeChecking;
 }
 
 // Getters:
@@ -19,33 +25,33 @@ bool Checking::withdrawal(Money amount)
     bool done = false;
     if(sufficientFonds(amount))
     {
-        Account::withdrawal(amount);
+        Account::balance -= amount;
         done = true;
     }
     return done;
 }
 
 // Useful:
-bool Checking::sufficientFonds(Money amount)
+bool Checking::sufficientFonds(Money amount) const
 {
     return Account::getBalance() + maxOverdraft >= amount;
 }
 
 // Files Management:
-void Checking::storeBinary(std::ofstream& outFile) const
+void Checking::storeBinary(std::ofstream& accountFile, std::ofstream& clientFile) const
 {
     // Store all the Account basic information
-    Account::storeBinary(outFile);
+    Account::storeBinary(accountFile, clientFile);
 
     // Store the Checking additional information
-    outFile.write(reinterpret_cast<const char*>(maxOverdraft), sizeof(maxOverdraft));
+    accountFile.write(reinterpret_cast<const char*>(&maxOverdraft), sizeof(maxOverdraft));
 }
 
-void Checking::readBinary(std::ifstream& inFile)
+void Checking::readBinary(std::ifstream& accountFile, std::ifstream& clientFile, Client& allocatedHolder)
 {
     // Read all the Account basic information
-    Account::readBinary(inFile);
+    Account::readBinary(accountFile, clientFile, allocatedHolder);
 
     // Read the Checking additional information
-    inFile.read(reinterpret_cast<char*>(maxOverdraft), sizeof(maxOverdraft));
+    accountFile.read(reinterpret_cast<char*>(&maxOverdraft), sizeof(maxOverdraft));
 }

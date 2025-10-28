@@ -6,15 +6,16 @@
 class University: public Account
 {
 private:
-    Money amountExtractionDay;
-    Money maxAmountExtractionDaily;
+    Money amountExtractionDay = 0;
+    Money maxAmountExtractionDaily = 0;
 
     // Useful:
     void extractionDone(int Money);
     bool allowExtraction(int Money) const;
 public:
     // Constructor:
-    University(const Client& holder, Money maxAmountExtractionDaily);
+    University();
+    University(Client& holder, Money maxAmountExtractionDaily);
 
     // Setters:
     bool withdrawal(int Money) override;
@@ -23,8 +24,8 @@ public:
     void endDay();
     
     // Files Management:
-    void storeBinary(std::ofstream& outFile) const override;
-    void readBinary(std::ifstream& inFile) override;
+    void storeBinary(std::ofstream& accountFile, std::ofstream& clientFile) const override;
+    void readBinary(std::ifstream& accountFile, std::ifstream& clientFile, Client& allocatedHolder);
 };
 
 #endif

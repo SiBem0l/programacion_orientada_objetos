@@ -6,16 +6,17 @@
 class Saving: public Account
 {
 private:
-    int numberExtractionsMonth;
-    int maxNumberExtractionsMonthly;
+    int numberExtractionsMonth = 0;
+    int maxNumberExtractionsMonthly = 0;
 
     // Useful:
-    bool allowExtraction();
+    bool allowExtraction() const;
     void extractionDone();
 
 public:
     // Constructor:
-    Saving(const Client& holder, int maxNumberExtractionsMonthly);
+    Saving();
+    Saving(Client& holder, int maxNumberExtractionsMonthly);
 
     // Setters:
     bool withdrawal(Money amount) override;
@@ -24,8 +25,8 @@ public:
     void endMonth();
 
     // Files Management:
-    void storeBinary(std::ofstream& outFile) const override;
-    void readBinary(std::ifstream& inFile) override;
+    void storeBinary(std::ofstream& accountFile, std::ofstream& clientFile) const override;
+    void readBinary(std::ifstream& accountFile, std::ifstream& clientFile, Client& allocatedHolder);
 };
 
 #endif

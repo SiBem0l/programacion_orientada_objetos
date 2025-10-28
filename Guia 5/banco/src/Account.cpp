@@ -10,25 +10,22 @@ std::ostream &operator<<(std::ostream &outStream, const Account &account)
 }
 
 // Constructor and destructor:
-Account::Account() : holder()
+Account::Account()
 {
 }
 
-Account::Account(const Client& holder) : holder(holder)
+Account::Account(Client& newHolder) : holder(&newHolder)
 {
 }
 
-Account::~Account() = default;
+Account::~Account()
+{
+}
 
 // Getters:
-Client& Account::getHolder()
+const Client& Account::getHolder() const 
 {
-    return holder;
-}
-
-const Client& Account::getHolder() const
-{
-    return holder;
+    return *holder;
 }
 
 Money Account::getBalance() const
@@ -36,48 +33,45 @@ Money Account::getBalance() const
     return balance;
 }
 
+AccountType Account::getType() const
+{
+    return type;
+}
+
 // Setters:
-void Account::deposit(Money amount)
-{
-    balance += amount;
-}
-
-bool Account::withdrawal(Money amount)
-{
-    balance -= amount;
-    return true;
-}
-
-bool Account::transfer(Account& destinatary, Money amount)
-{
-    bool done = false;
-    if(withdrawal(amount))
-    {
-        destinatary.deposit(amount);
-        done = true;
-    }
-    return done;
-}
+// bool Account::transfer(Account& destinatary, Money amount)
+// {
+//     bool done = false;
+//     if(withdrawal(amount))
+//     {
+//         destinatary.deposit(amount);
+//         done = true;
+//     }
+//     return done;
+// }
 
 // Useful:
-bool Account::sufficientFonds(Money amount)
+bool Account::sufficientFonds(Money amount) const
 {
     return amount <= getBalance();
 }
 
 // Files Management:
-void Account::storeBinary(std::ofstream& outFile) const
+void Account::storeBinary(std::ofstream& accountFile, std::ofstream& clientFile) const
 {
-    const Client& client = getHolder();
-    client.storeBinary(outFile);
+    // Store the client
+    (*holder).storeBinary(clientFile);
 
-    const Money& balance = getBalance();
-    outFile.write(reinterpret_cast<const char*>(&balance), sizeof(balance));
+    // Store the balance of the account
+    accountFile.write(reinterpret_cast<const char*>(&balance), sizeof(balance));
 }
 
-void Account::readBinary(std::ifstream& inFile)
+void Account::readBinary(std::ifstream& accountFile, std::ifstream& clientFile, Client& allocatedHolder)
 {
-    holder.readBinary(inFile);
+    // Read the client 
+    allocatedHolder.readBinary(clientFile);
+    holder = &allocatedHolder;
 
-    inFile.read(reinterpret_cast<char*>(&balance), sizeof(balance));
+    // Store the balance of the account
+    accountFile.read(reinterpret_cast<char*>(&balance), sizeof(balance));
 }

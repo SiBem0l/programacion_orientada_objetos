@@ -1,15 +1,20 @@
 #include "Saving.hpp"
 
 // Constructor:
-Saving::Saving(const Client& holder, int max) : Account(holder),
-                                                numberExtractionsMonth(0),
-                                                maxNumberExtractionsMonthly(max)
+Saving::Saving()
+{
+    Account::type = typeSavings;
+}
+
+Saving::Saving(Client& holder, int max) : Account(holder),
+                                          maxNumberExtractionsMonthly(max)
 
 {
+    Account::type = typeSavings;
 }
 
 // Useful:
-bool Saving::allowExtraction()
+bool Saving::allowExtraction() const
 {
     return numberExtractionsMonth <= maxNumberExtractionsMonthly;
 }
@@ -30,29 +35,29 @@ bool Saving::withdrawal(Money amount)
     bool done = false;
     if (allowExtraction() && sufficientFonds(amount))
     {
-        Account::withdrawal(amount);
+        Account::balance -= amount;
         done = true;
     }
     return done;
 }
 
 // Files Management:
-void Saving::storeBinary(std::ofstream& outFile) const
+void Saving::storeBinary(std::ofstream& accountFile, std::ofstream& clientFile) const
 {
     // Store all the Account basic information
-    Account::storeBinary(outFile);
+    Account::storeBinary(accountFile, clientFile);
 
     // Store the Saving additional information
-    outFile.write(reinterpret_cast<const char*>(numberExtractionsMonth), sizeof(numberExtractionsMonth));
-    outFile.write(reinterpret_cast<const char*>(maxNumberExtractionsMonthly), sizeof(maxNumberExtractionsMonthly));
+    accountFile.write(reinterpret_cast<const char*>(&numberExtractionsMonth), sizeof(numberExtractionsMonth));
+    accountFile.write(reinterpret_cast<const char*>(&maxNumberExtractionsMonthly), sizeof(maxNumberExtractionsMonthly));
 }
 
-void Saving::readBinary(std::ifstream& inFile)
+void Saving::readBinary(std::ifstream& accountFile, std::ifstream& clientFile, Client& allocatedHolder)
 {
-    // Store all the Account basic information
-    Account::readBinary(inFile);
+    // Read all the Account basic information
+    Account::readBinary(accountFile, clientFile, allocatedHolder);
 
     // Store the Saving additional information
-    inFile.read(reinterpret_cast<char*>(numberExtractionsMonth), sizeof(numberExtractionsMonth));
-    inFile.read(reinterpret_cast<char*>(maxNumberExtractionsMonthly), sizeof(maxNumberExtractionsMonthly));
+    accountFile.read(reinterpret_cast<char*>(&numberExtractionsMonth), sizeof(numberExtractionsMonth));
+    accountFile.read(reinterpret_cast<char*>(&maxNumberExtractionsMonthly), sizeof(maxNumberExtractionsMonthly));
 }

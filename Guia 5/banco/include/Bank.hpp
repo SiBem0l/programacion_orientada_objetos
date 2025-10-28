@@ -2,7 +2,9 @@
 #define BANK_HPP
 
 #include <vector>
-#include "Account.hpp"
+#include "Checking.hpp"
+#include "Saving.hpp"
+#include "University.hpp"
 
 // Index type for the vector of Accounts
 using indexType = std::vector<Account>::size_type;
@@ -10,10 +12,14 @@ using indexType = std::vector<Account>::size_type;
 class Bank
 {
 private:
-    std::vector<Account> accounts;
+    std::vector<Account*> accounts;
     Money activesTotal = 0;
 
 public: 
+    // Constructor and destructor:
+    // Bank();
+    ~Bank();
+
     // Getters:
     Account& getAccount(indexType index);
     const Account& getAccount(indexType index) const;
@@ -22,15 +28,14 @@ public:
     Money getActivesTotal() const;
 
     // Setters:
-    void accountsInsert(indexType index, const Account& account);
-    void accountsErease(indexType index);
-
-    void accountsPushBack(const Account& account);
-    void accountsPopBack();
+    void addChecking(Client& holder, Money maxOverdraft);
+    void addUniversity(Client& holder, Money maxAmountExtractionDaily);
+    void addSaving(Client& holder, int maxNumberExtractionsMonthly);
+    void popAccount();
 
     // Files management:
-    bool storeBinary(std::string fileName) const;
-    bool readBinary(std::string fileName);     
+    bool storeBinary(std::string accountFileName, std::string clientFileName) const;
+    bool readBinary(std::string accountFileName, std::string clientFileName, std::vector<Client>& clients);     
 };
 
 

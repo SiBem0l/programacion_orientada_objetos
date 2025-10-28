@@ -1,10 +1,16 @@
 #include "University.hpp"
 
 // Constructor:
-University::University(const Client& holder, Money max) : Account(holder),
-                                                          amountExtractionDay(0),
-                                                          maxAmountExtractionDaily(max)
+University::University()
 {
+    Account::type = typeUniversity;
+}
+
+University::University(Client& holder, Money max) : Account(holder),
+                                                    amountExtractionDay(0),
+                                                    maxAmountExtractionDaily(max)
+{
+    Account::type = typeUniversity;
 }
 
 // Useful:
@@ -29,29 +35,29 @@ bool University::withdrawal(Money amount)
     bool done = false;
     if(allowExtraction(amount) && sufficientFonds(amount))
     {
-        Account::withdrawal(amount);
+        Account::balance -= amount;
         done = true;
     }
     return done;
 }
 
 // Files Management:
-void University::storeBinary(std::ofstream& outFile) const
+void University::storeBinary(std::ofstream& accountFile, std::ofstream& clientFile) const
 {
     // Store all the Account basic information
-    Account::storeBinary(outFile);
+    Account::storeBinary(accountFile, clientFile);
 
     // Store the University additional information
-    outFile.write(reinterpret_cast<const char*>(amountExtractionDay), sizeof(amountExtractionDay));
-    outFile.write(reinterpret_cast<const char*>(maxAmountExtractionDaily), sizeof(maxAmountExtractionDaily));
+    accountFile.write(reinterpret_cast<const char*>(&amountExtractionDay), sizeof(amountExtractionDay));
+    accountFile.write(reinterpret_cast<const char*>(&maxAmountExtractionDaily), sizeof(maxAmountExtractionDaily));
 }
 
-void University::readBinary(std::ifstream& inFile)
+void University::readBinary(std::ifstream& accountFile, std::ifstream& clientFile, Client& allocatedHolder)
 {
-    // Store all the Account basic information
-    Account::readBinary(inFile);
+    // Read all the Account basic information
+    Account::readBinary(accountFile, clientFile, allocatedHolder);
 
-    // Store the University additional information
-    inFile.read(reinterpret_cast<char*>(amountExtractionDay), sizeof(amountExtractionDay));
-    inFile.read(reinterpret_cast<char*>(maxAmountExtractionDaily), sizeof(maxAmountExtractionDaily));
+    // Read the University additional information
+    accountFile.read(reinterpret_cast<char*>(&amountExtractionDay), sizeof(amountExtractionDay));
+    accountFile.read(reinterpret_cast<char*>(&maxAmountExtractionDaily), sizeof(maxAmountExtractionDaily));
 }
