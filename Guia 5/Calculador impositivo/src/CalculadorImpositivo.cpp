@@ -25,7 +25,15 @@ ReciboDePago CalculadorImpositivo::calcularImpuestoTotal() const
 
     for(auto factura : facturas)
     {
-        montoFijo = categoria->calcularImpuesto(factura, montoFijo, montoVariable);
+        Dinero total = 0;
+        Dinero fijo = 0;
+        Dinero variable = 0;
+
+        total = categoria->calcularImpuesto(factura, fijo, variable);
+
+        montoTotal += total;
+        montoFijo += fijo;
+        montoVariable += variable;
     }
 
     ReciboDePago recibo(nombre, montoTotal, montoFijo, montoVariable);

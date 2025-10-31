@@ -1,11 +1,13 @@
 #ifndef RECIBODEPAGO_HPP
 #define RECIBODEPAGO_HPP
 
+#include <iostream>
 #include <string>
 #include "Dinero.hpp"
 
 class ReciboDePago
 {
+    friend std::ostream& operator<<(std::ostream& outStream, const ReciboDePago& recibo);
 private:
     std::string nombre;
     Dinero montoTotal;

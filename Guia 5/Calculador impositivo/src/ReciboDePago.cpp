@@ -26,3 +26,12 @@ Dinero ReciboDePago::getMontoVariable() const
 {
     return montoVariable;
 }
+
+std::ostream& operator<<(std::ostream& outStream, const ReciboDePago& recibo)
+{
+    outStream << recibo.getNombre() << std::endl;
+    outStream << "Impuesto total: " << recibo.getMontoTotal() << std::endl;
+    outStream << "Impuesto fijo: " << recibo.getMontoFijo() << std::endl;
+    outStream << "Impuesto variable: " << recibo.getMontoVariable() << std::endl;
+    return outStream;
+}

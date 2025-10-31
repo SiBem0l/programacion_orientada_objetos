@@ -1,6 +1,6 @@
 #ifndef MONEY_HPP
 #define MONEY_HPP
 
-using Dinero = int;
+using Dinero = double;
 
 #endif
