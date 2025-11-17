@@ -1,30 +1,32 @@
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
-template<typename T = int, int _size = 10> class Vector
-{
-private:
-    T elements[lenght] = 0;
-    int size = _size;
+#include <iostream>
 
+template <typename T>
+class Vector
+{
 public:
-    T &operator[](int index) { return elements[index]; }
-    T max() const 
-    { 
-        T max = element[0]; 
-        for(auto elem : elements) 
-        {
-            max = (max < elem) elem : max;
-        }
-        return max;
-    }
-    void fill(T value)
-    {
-        for(auto elem : elements)
-        {
-            elem = value;
-        }
-    }
+    // Define all the types for the template
+    using size_type = std::size_t;
+
+    // Constructor and copying
+    Vector();
+    Vector(const Vector& v);
+    Vector(const size_type& capacity);
+
+    // Vector right value
+    Vector(Vector&& v);
+
+
+
+private:
+    // Capacity:
+    size_type size = 0;
+    size_type capacity = 0;
+    
+    // Elements of the vector
+    T* data;
 };
 
 #endif
