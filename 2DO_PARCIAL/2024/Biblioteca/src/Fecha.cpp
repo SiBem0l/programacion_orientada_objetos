@@ -1,55 +1,68 @@
 #include "Fecha.hpp"
+#include <iostream>
+#include <stdexcept>
+#include <cstdlib>
 
-// Constructor
-Fecha::Fecha(const int dia, const int mes, const int anio)
+Fecha::Fecha(dia_type d, mes_type m, anio_type a)
+    : dia(d), mes(m), anio(a)
 {
-    this->dia = dia;
-    this->mes = mes;
-    this->anio = anio;
 }
 
-// Getters
-int Fecha::getDia() const
+Fecha::dia_type Fecha::getDia() const
 {
-    return this->dia;
+    return dia;
 }
 
-int Fecha::getMes() const
+Fecha::mes_type Fecha::getMes() const
 {
-    return this->mes;
+    return mes;
 }
 
-int Fecha::getAnio() const
+Fecha::anio_type Fecha::getAnio() const
 {
-    return this->anio;
+    return anio;
 }
 
-// Setters
-void Fecha::setDia(const int dia)
+void Fecha::setDia(dia_type nuevoDia)
 {
-    this->dia = dia;
+    dia = nuevoDia;
 }
 
-void Fecha::setMes(const int mes)
+void Fecha::setMes(mes_type nuevoMes)
 {
-    this->mes = mes;
+    mes = nuevoMes;
 }
 
-void Fecha::setAnio(const int anio)
+void Fecha::setAnio(anio_type nuevoAnio)
 {
-    this->anio = anio;
+    anio = nuevoAnio;
 }
 
-// File managment
-void Fecha::storeBinary(std::ofstream& outStream)
+void Fecha::guardadBinario(std::ofstream &outStream) const
 {
-    outStream.write(reinterpret_cast<char*>(&dia), sizeof(int));
-    outStream.write(reinterpret_cast<char*>(&mes), sizeof(int));
-    outStream.write(reinterpret_cast<char*>(&anio), sizeof(int));
+    if (outStream.fail())
+    {
+        throw std::runtime_error("Archivo no abrio para guardado de fecha.");
+    }
+
+    outStream.write(reinterpret_cast<const char *>(&dia), sizeof(dia));
+    outStream.write(reinterpret_cast<const char *>(&mes), sizeof(mes));
+    outStream.write(reinterpret_cast<const char *>(&anio), sizeof(anio));
 }
-void Fecha::readBinary(std::ifstream& inStream)
+
+Fecha Fecha::leerBinario(std::ifstream &inStream)
 {
-    inStream.read(reinterpret_cast<char*>(&dia), sizeof(int));
-    inStream.read(reinterpret_cast<char*>(&mes), sizeof(int));
-    inStream.read(reinterpret_cast<char*>(&anio), sizeof(int));
+    if (inStream.fail())
+    {
+        throw std::runtime_error("Archivo no abrio para lectura de fecha.");
+    }
+
+    dia_type dia;
+    mes_type mes;
+    anio_type anio;
+    inStream.read(reinterpret_cast<char *>(&dia), sizeof(dia));
+    inStream.read(reinterpret_cast<char *>(&mes), sizeof(mes));
+    inStream.read(reinterpret_cast<char *>(&anio), sizeof(anio));
+
+    return Fecha(dia, mes, anio);
 }

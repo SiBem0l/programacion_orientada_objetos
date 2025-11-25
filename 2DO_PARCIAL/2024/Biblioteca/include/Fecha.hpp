@@ -1,33 +1,31 @@
 #ifndef FECHA_HPP
 #define FECHA_HPP
 
-#include <fstream>
+#include <fstream> 
 
-class Fecha
-{
+class Fecha {
 private:
-    // Atributos privados
     int dia;
     int mes;
     int anio;
 
 public:
-    // Constructor
-    Fecha(const int dia, const int mes, const int anio);
+    using dia_type = char;
+    using mes_type = char;
+    using anio_type = int;
 
-    // Getters
-    int getDia() const;
-    int getMes() const;
-    int getAnio() const;
+    Fecha(dia_type dia, mes_type mes, anio_type anio);
 
-    // Setters
-    void setDia(const int dia);
-    void setMes(const int mes);
-    void setAnio(const int anio);
+    dia_type getDia() const;
+    mes_type getMes() const;
+    anio_type getAnio() const;
 
-    // File managment
-    void storeBinary(std::ofstream& outStream);
-    void readBinary(std::ifstream& inStream);
+    void setDia(dia_type nuevoDia);
+    void setMes(mes_type nuevoMes);
+    void setAnio(anio_type nuevoAnio);
+
+    void guardadBinario(std::ofstream& outStream) const;
+    static Fecha leerBinario(std::ifstream& inStream);
 };
 
 #endif // FECHA_HPP
