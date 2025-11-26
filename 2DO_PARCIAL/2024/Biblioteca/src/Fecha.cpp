@@ -1,44 +1,42 @@
 #include "Fecha.hpp"
 #include <iostream>
-#include <stdexcept>
+#include <exception>
 #include <cstdlib>
 
 Fecha::Fecha(dia_type d, mes_type m, anio_type a)
     : dia(d), mes(m), anio(a)
 {
+    if(d > 31 || m > 12)
+    {
+        // throw FechaInvalida("Constructor");
+    }
 }
 
-Fecha::dia_type Fecha::getDia() const
+bool Fecha::operator<(const Fecha& fecha) const
 {
-    return dia;
+    return (anio < fecha.anio) ||
+           (anio == fecha.anio && mes < fecha.mes) ||
+           (anio == fecha.anio && mes == fecha.mes && dia < fecha.dia);
 }
 
-Fecha::mes_type Fecha::getMes() const
+bool Fecha::operator>(const Fecha& fecha) const
 {
-    return mes;
+    return (anio > fecha.anio) ||
+           (anio == fecha.anio && mes > fecha.mes) ||
+           (anio == fecha.anio && mes == fecha.mes && dia > fecha.dia);
 }
 
-Fecha::anio_type Fecha::getAnio() const
+Fecha Fecha::operator+(const Fecha& fecha) const
 {
-    return anio;
+    return Fecha(dia + fecha.dia, mes + fecha.mes, anio + fecha.anio);
 }
 
-void Fecha::setDia(dia_type nuevoDia)
+Fecha Fecha::operator-(const Fecha& fecha) const
 {
-    dia = nuevoDia;
+    return Fecha(dia - fecha.dia, mes - fecha.mes, anio - fecha.anio);
 }
 
-void Fecha::setMes(mes_type nuevoMes)
-{
-    mes = nuevoMes;
-}
-
-void Fecha::setAnio(anio_type nuevoAnio)
-{
-    anio = nuevoAnio;
-}
-
-void Fecha::guardadBinario(std::ofstream &outStream) const
+void Fecha::guardar(std::ofstream &outStream) const
 {
     if (outStream.fail())
     {
@@ -50,7 +48,7 @@ void Fecha::guardadBinario(std::ofstream &outStream) const
     outStream.write(reinterpret_cast<const char *>(&anio), sizeof(anio));
 }
 
-Fecha Fecha::leerBinario(std::ifstream &inStream)
+Fecha Fecha::leer(std::ifstream &inStream)
 {
     if (inStream.fail())
     {
@@ -65,4 +63,9 @@ Fecha Fecha::leerBinario(std::ifstream &inStream)
     inStream.read(reinterpret_cast<char *>(&anio), sizeof(anio));
 
     return Fecha(dia, mes, anio);
+}
+
+std::ostream& operator<<(std::ostream& outStream, const Fecha& fecha)
+{
+    return outStream << fecha.dia << '/' << fecha.mes << '/' << fecha.anio;
 }
